@@ -52,9 +52,9 @@ export default function ManagerGroups() {
               <th className="px-6 py-3 bg-[#12151e] border border-[#12151e] ">
                 Id Admin
               </th>
-              <th className="px-6 py-3 bg-[#12151e] border border-[#12151e] ">
+              {/* <th className="px-6 py-3 bg-[#12151e] border border-[#12151e] ">
                 Image Groups
-              </th>
+              </th> */}
               <th className="px-6 py-3 bg-[#12151e] border border-[#12151e] ">
                 Group Name
               </th>
@@ -79,9 +79,9 @@ export default function ManagerGroups() {
                   {item.adminID}
                 </td>
 
-                <td className="px-6 py-4 border border-[#12151e] ">
+                {/* <td className="px-6 py-4 border border-[#12151e] ">
                   <image src={item.groupImage1} alt="img" />
-                </td>
+                </td> */}
                 <td className="px-6 py-4 border border-[#12151e] ">
                   {item.groupName}
                 </td>

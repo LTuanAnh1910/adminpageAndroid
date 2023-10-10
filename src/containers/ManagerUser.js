@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { db } from "../firebase";
 import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
+
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AiOutlineClose } from "react-icons/ai";
@@ -50,7 +51,9 @@ export default function ManagerUser() {
       setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     };
     getUsers();
+    console.log(users);
   }, []);
+
   return (
     <div className="p-4 flex flex-col gap-2 bg-[#000000] h-[91.86%] text-[#6c7293] text-[15px] ">
       <Scrollbar>
@@ -61,9 +64,9 @@ export default function ManagerUser() {
               <th className="px-6 py-3 bg-[#12151e]  border border-[#12151e]">
                 ID
               </th>
-              <th className="px-6 py-3 bg-[#12151e]  border border-[#12151e]">
+              {/* <th className="px-6 py-3 bg-[#12151e]  border border-[#12151e]">
                 Image
-              </th>
+              </th> */}
               <th className="px-6 py-3 bg-[#12151e]  border border-[#12151e]">
                 Email
               </th>
@@ -85,9 +88,9 @@ export default function ManagerUser() {
             {users.map((item, index) => (
               <tr key={index}>
                 <td className="px-6 py-4 border border-[#12151e]">{item.id}</td>
-                <td className="px-6 py-4 border border-[#12151e]">
+                {/* <td className="px-6 py-4 border border-[#12151e]">
                   <image src={item.image} alt="img" />
-                </td>
+                </td> */}
                 <td className="px-6 py-4 border border-[#12151e]">
                   {item.email}
                 </td>

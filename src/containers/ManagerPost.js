@@ -56,9 +56,9 @@ export default function ManagerPost() {
               <th className="px-6 py-3 bg-[#12151e] border border-[#12151e] ">
                 Email Author
               </th>
-              <th className="px-6 py-3 bg-[#12151e] border border-[#12151e] ">
+              {/* <th className="px-6 py-3 bg-[#12151e] border border-[#12151e] ">
                 Image Author
-              </th>
+              </th> */}
               <th className="px-6 py-3 bg-[#12151e] border border-[#12151e] ">
                 Name Author
               </th>
@@ -85,9 +85,9 @@ export default function ManagerPost() {
                 <td className="px-6 py-4 border border-[#12151e] ">
                   {item.emailAuthor}
                 </td>
-                <td className="px-6 py-4 border border-[#12151e] ">
+                {/* <td className="px-6 py-4 border border-[#12151e] ">
                   <image src={item.imageAuthor} alt="img" />
-                </td>
+                </td> */}
                 <td className="px-6 py-4 border border-[#12151e] ">
                   {item.nameAuthor}
                 </td>
