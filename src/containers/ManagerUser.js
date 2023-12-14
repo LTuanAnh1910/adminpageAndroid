@@ -16,23 +16,25 @@ export default function ManagerUser() {
   const [users, setUsers] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [showFormUpdate, setShowFormUpdate] = useState(false);
-  const [selectedUserId, setSelectedUserId] = useState(""); // Thêm state để lưu trữ ID được chọn
+  const [selectedUserId, setSelectedUserId] = useState("");
+  const [searchTerm, setSearchTerm] = useState(""); // Add search term state
 
-  const userCollectionRef = collection(db, "users");
+  const userCollectionRef = collection(db, "user");
 
   const notify = () => toast("Success Delete!");
 
   const deleteUsers = async (id) => {
-    const userDoc = doc(db, "users", id);
+    const userDoc = doc(db, "user", id);
     await deleteDoc(userDoc);
     notify();
     window.location.reload();
   };
 
   const changeInfoUsers = (id) => {
-    setSelectedUserId(id); // Lưu trữ ID của người dùng được chọn
-    setShowFormUpdate(true); // Mở biểu mẫu cập nhật thông tin người dùng
+    setSelectedUserId(id);
+    setShowFormUpdate(true);
   };
+
   const handleCloseUpdate = () => {
     setShowFormUpdate(false);
   };
@@ -40,25 +42,55 @@ export default function ManagerUser() {
   const handleAdd = () => {
     setShowForm(true);
   };
+
   const handleClose = () => {
     setShowForm(false);
   };
 
   useEffect(() => {
     const getUsers = async () => {
-      const data = await getDocs(userCollectionRef);
+      try {
+        const data = await getDocs(userCollectionRef);
 
-      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+        let filteredUsers;
+
+        if (searchTerm) {
+          // If there's a search term, filter users based on the name
+          filteredUsers = data.docs
+            .map((doc) => ({ ...doc.data(), id: doc.id }))
+            .filter((user) =>
+              user.name.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+        } else {
+          // If there's no search term, display all users
+          filteredUsers = data.docs.map((doc) => ({
+            ...doc.data(),
+            id: doc.id,
+          }));
+        }
+
+        setUsers(filteredUsers);
+      } catch (error) {
+        console.error("Error fetching users", error);
+      }
     };
+
     getUsers();
-    console.log(users);
-  }, []);
+  }, [searchTerm, userCollectionRef]);
 
   return (
     <div className="p-4 flex flex-col gap-2 bg-[#000000] h-[91.86%] text-[#6c7293] text-[15px] ">
       <Scrollbar>
         <h2 className="text-xl font-bold mb-4">Quản lý Users</h2>
-        <table className=" border border-collapse border-[#12151e] items-center ">
+        <div className="w-[300px] h-[30px] mb-5  ">
+          <input
+            className="w-full h-full bg-gray-400 rounded text-[#6c7293] placeholder-gray-500 ml-2 p-2"
+            placeholder="Search user"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+        <table className=" border border-collapse border-[#12151e] items-center ml-auto mr-auto ">
           <thead>
             <tr>
               <th className="px-6 py-3 bg-[#12151e]  border border-[#12151e]">
@@ -143,7 +175,7 @@ export default function ManagerUser() {
             ))}
           </tbody>
         </table>
-        <div className=" flex pt-[28px] pl-4 ">
+        {/* <div className=" flex pt-[28px] pl-4 ">
           <button
             className="bg-[#0ab39c] hover:bg-[#0ddfc2] text-[14px] w-[130px] h-[40px] text-white font-bold  py-1 px-2 rounded-md"
             onClick={handleAdd}
@@ -163,7 +195,7 @@ export default function ManagerUser() {
               <FormUsers />
             </div>
           </div>
-        )}
+        )} */}
       </Scrollbar>
     </div>
   );

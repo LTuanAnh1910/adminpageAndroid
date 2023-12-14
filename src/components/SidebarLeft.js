@@ -50,10 +50,10 @@ export default function SidebarLeft() {
               color: isActive ? "#ffffff" : "#6c7293",
             })}
           >
-            Quản lý Posts
+            Quản lý Conversations
           </NavLink>
         </div>
-        <div className="flex gap-2 w-[224px] h-[46px] text-[15px] items-center cursor-pointer ">
+        {/* <div className="flex gap-2 w-[224px] h-[46px] text-[15px] items-center cursor-pointer ">
           <AiOutlineUsergroupDelete className="text-[#6c7293]" size={24} />
           <NavLink
             to="/groups"
@@ -63,7 +63,7 @@ export default function SidebarLeft() {
           >
             Quản lý Groups
           </NavLink>
-        </div>
+        </div> */}
       </div>
     </div>
   );
