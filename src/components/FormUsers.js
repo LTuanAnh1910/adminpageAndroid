@@ -9,7 +9,7 @@ import {
 } from "firebase/firestore";
 
 export default function FormUsers() {
-  const userCollectionRef = collection(db, "users");
+  const userCollectionRef = collection(db, "test_user");
 
   const [newName, setNewName] = useState("");
   const [newEmail, setNewEmail] = useState("");

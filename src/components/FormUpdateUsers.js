@@ -3,7 +3,7 @@ import { db } from "../firebase";
 import { collection, doc, updateDoc } from "firebase/firestore";
 
 export default function FormUpdateUsers({ selectedUserId }) {
-  const userCollectionRef = collection(db, "users");
+  const userCollectionRef = collection(db, "test_user");
 
   const [newName, setNewName] = useState("");
   const [newEmail, setNewEmail] = useState("");

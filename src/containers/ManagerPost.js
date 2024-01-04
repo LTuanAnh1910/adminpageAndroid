@@ -10,12 +10,12 @@ import { Timestamp } from "firebase/firestore";
 export default function ManagerPost() {
   const [posts, setPosts] = useState([]);
 
-  const userCollectionRef = collection(db, "conversations");
+  const userCollectionRef = collection(db, "test_conversations");
 
   const notify = () => toast("Success Delete!");
 
   const deletePosts = async (id) => {
-    const userDoc = doc(db, "conversations", id);
+    const userDoc = doc(db, "test_conversations", id);
     await deleteDoc(userDoc);
     notify();
     window.location.reload();

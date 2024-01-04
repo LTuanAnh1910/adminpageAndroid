@@ -19,12 +19,12 @@ export default function ManagerUser() {
   const [selectedUserId, setSelectedUserId] = useState("");
   const [searchTerm, setSearchTerm] = useState(""); // Add search term state
 
-  const userCollectionRef = collection(db, "user");
+  const userCollectionRef = collection(db, "test_user");
 
   const notify = () => toast("Success Delete!");
 
   const deleteUsers = async (id) => {
-    const userDoc = doc(db, "user", id);
+    const userDoc = doc(db, "test_user", id);
     await deleteDoc(userDoc);
     notify();
     window.location.reload();
