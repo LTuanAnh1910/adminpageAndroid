@@ -1,60 +1,85 @@
-import React, { useEffect, useState } from "react";
-import { db } from "../firebase";
-import { collection, doc, updateDoc } from "firebase/firestore";
+import React, { useState } from "react";
+import axios from "axios";
+import { toast } from "react-toastify";
 
-export default function FormUpdateUsers({ selectedUserId }) {
-  const userCollectionRef = collection(db, "test_user");
+const FormUpdateUsers = ({ user, onClose }) => {
+  const [name, setName] = useState(user.name);
+  const [email, setEmail] = useState(user.email);
+  const [password, setPassword] = useState(user.password);
+  const [verified, setVerified] = useState(user.verified);
 
-  const [newName, setNewName] = useState("");
-  const [newEmail, setNewEmail] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-
-  const updateUsers = async () => {
-    const userDocRef = doc(userCollectionRef, selectedUserId);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
-      await updateDoc(userDocRef, {
-        name: newName,
-        email: newEmail,
-        password: newPassword,
-      });
-      window.location.reload();
+      const response = await axios.put(
+        `http://localhost:3000/api/users/${user._id}`,
+        {
+          name,
+          email,
+          password,
+          verified,
+        }
+      );
+      console.log(response.data);
+      toast.success("Cập nhật user thành công!");
+      onClose();
     } catch (error) {
-      console.error("Error updating user:", error);
+      console.error("Error updating user", error);
+      toast.error("Cập nhật user không thành công!");
     }
   };
 
   return (
-    <div className="flex flex-col gap-4 w-[400px] h-[400px] bg-[#0f111a] rounded-md">
-      <h2 className="text-[#ced4da] font-bold text-[24px] ml-auto mr-auto pt-[12px]">
-        Update Users
-      </h2>
-      <div className="flex gap-4 flex-col items-center">
+    <form
+      onSubmit={handleSubmit}
+      className="flex flex-col gap-4 p-4 w-[280px] bg-white rounded shadow-md"
+    >
+      <div>
+        <label className="block text-gray-700">Name</label>
         <input
           type="text"
-          placeholder="Tên"
-          className="bg-[#262a2f] px-2 py-2 w-[360px] rounded-md"
-          onChange={(e) => setNewName(e.target.value)}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className="w-full p-2 border border-gray-300 rounded"
         />
+      </div>
+      <div>
+        <label className="block text-gray-700">Email</label>
         <input
           type="email"
-          placeholder="Email"
-          className="bg-[#262a2f] px-2 py-2 w-[360px] rounded-md"
-          onChange={(e) => setNewEmail(e.target.value)}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="w-full p-2 border border-gray-300 rounded"
         />
+      </div>
+      <div>
+        <label className="block text-gray-700">Password</label>
         <input
           type="password"
-          placeholder="Password"
-          className="bg-[#262a2f] px-2 py-2 w-[360px] rounded-md"
-          onChange={(e) => setNewPassword(e.target.value)}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="w-full p-2 border border-gray-300 rounded"
         />
-
-        <button
-          className="bg-[#3874ff] hover:bg-[#004dff] text-[14px] w-[120px] h-[35px] text-[#fff] font-bold px-1 rounded-md mt-3"
-          onClick={updateUsers}
-        >
-          Cập nhật User
-        </button>
       </div>
-    </div>
+      <div>
+        <label className="block text-gray-700">Verified</label>
+        <select
+          value={verified}
+          onChange={(e) => setVerified(e.target.value === "true")}
+          className="w-full p-2 border border-gray-300 rounded"
+        >
+          <option value="true">True</option>
+          <option value="false">False</option>
+        </select>
+      </div>
+      <button
+        type="submit"
+        className="p-2 bg-blue-500 text-white rounded hover:bg-blue-700"
+      >
+        Update User
+      </button>
+    </form>
   );
-}
+};
+
+export default FormUpdateUsers;

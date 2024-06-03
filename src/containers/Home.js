@@ -2,7 +2,7 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 
 import SidebarLeft from "../components/SidebarLeft";
-import ManagerPost from "./ManagerPost";
+import ManagerPost from "./ManagerProducts";
 import ManagerUser from "./ManagerUser";
 import Header from "../components/Header";
 import { Outlet } from "react-router-dom";
