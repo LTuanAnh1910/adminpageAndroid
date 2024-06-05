@@ -1,4 +1,5 @@
 import axios from "axios";
+
 import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 
@@ -8,8 +9,8 @@ export default function EditProduct({ product, isOpen, onClose, onUpdate }) {
   const [price, setPrice] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [description, setDescription] = useState("");
-
   const [category, setCategory] = useState("");
+  const [quantity, setQuantity] = useState();
 
   useEffect(() => {
     if (isOpen) {
@@ -18,6 +19,7 @@ export default function EditProduct({ product, isOpen, onClose, onUpdate }) {
       setPrice(product.price);
       setImageUrl(product.imageUrl);
       setDescription(product.description);
+      setQuantity(product.quantity);
     }
   }, [isOpen, product]);
 
@@ -32,6 +34,7 @@ export default function EditProduct({ product, isOpen, onClose, onUpdate }) {
       price,
       imageUrl,
       description,
+      quantity,
     };
 
     try {
@@ -98,6 +101,16 @@ export default function EditProduct({ product, isOpen, onClose, onUpdate }) {
           type="text"
           value={category}
           onChange={(e) => setCategory(e.target.value)}
+          className="w-full p-2 border border-gray-300 rounded"
+        />
+      </div>
+
+      <div>
+        <label className="block text-gray-700">Số lượng</label>
+        <input
+          type="text"
+          value={quantity}
+          onChange={(e) => setQuantity(e.target.value)}
           className="w-full p-2 border border-gray-300 rounded"
         />
       </div>

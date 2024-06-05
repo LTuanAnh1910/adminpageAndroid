@@ -45,7 +45,7 @@ export default function ManagerPost() {
 
   useEffect(() => {
     fetchProducts();
-  }, [products]);
+  }, []);
 
   const offset = currentPage * itemsPerPage;
   const currentPageProducts = products.slice(offset, offset + itemsPerPage);
@@ -69,6 +69,8 @@ export default function ManagerPost() {
     setEditingProduct(product);
     setIsEditProductModalOpen(true);
   };
+
+  console.log(products);
 
   return (
     <div className="flex flex-col p-4 bg-[#000000] h-[91.86%] text-[14px] text-[#6c7293]">
@@ -114,6 +116,9 @@ export default function ManagerPost() {
                 Ảnh SP
               </th>
               <th className="px-6 py-3 bg-[#12151e] border border-[#12151e]">
+                Số lượng
+              </th>
+              <th className="px-6 py-3 bg-[#12151e] border border-[#12151e]">
                 Mô tả
               </th>
               <th className="px-6 py-3 bg-[#12151e] border border-[#12151e]">
@@ -138,10 +143,13 @@ export default function ManagerPost() {
                 </td>
                 <td className="px-6 py-4 border border-[#12151e]">
                   <img
-                    className="h-[200px] w-[200px] rounded"
+                    className="h-[180px] w-[180px] rounded"
                     src={item.imageUrl}
                     alt="product"
                   />
+                </td>
+                <td className="px-6 py-4 border border-[#12151e]">
+                  {item.quantity}
                 </td>
                 <td className="px-6 py-4 border border-[#12151e]">
                   {item.description.slice(0, 30)} ...
